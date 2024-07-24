@@ -39,7 +39,8 @@ const App = () => {
   const [colorMap, setColorMap] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/population')
+    //axios.get('http://localhost:5000/api/population')
+    axios.get('https://population-visualization-api.onrender.com/api/population')
       .then(response => {
         setData(response.data);
         // Initialize color map for each country on data load
