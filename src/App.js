@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import './App.css'; // Import CSS styles
 
 ChartJS.register(
   CategoryScale,
@@ -39,8 +40,8 @@ const App = () => {
   const [colorMap, setColorMap] = useState({});
 
   useEffect(() => {
-    //axios.get('http://localhost:5000/api/population')
-    axios.get('https://population-visualization-api.onrender.com/api/population')
+    axios.get('http://localhost:5000/api/population')
+    //axios.get('https://population-visualization-api.onrender.com/api/population')
       .then(response => {
         setData(response.data);
         // Initialize color map for each country on data load
@@ -112,9 +113,18 @@ const App = () => {
   return (
     <div>
       <h1>Population Growth per Country</h1>
-      <p>Year: {year}</p>
-      <p>Total Population: {totalPopulation.toLocaleString()}</p>
-      <Bar data={chartData} options={options} />
+      {filteredData.length > 0 ? (
+        <>
+          <p>Year: {year}</p>
+          <p>Total Population: {totalPopulation.toLocaleString()}</p>
+          <Bar data={chartData} options={options} />
+        </>
+      ) : (
+        <div className="loader-container">
+          <div className="loader"></div>
+          <p>Loading...</p>
+        </div>
+      )}
     </div>
   );
 };
